@@ -3,7 +3,7 @@ extern crate bindgen;
 use std::env;
 use std::io::Result;
 use std::path::{Path, PathBuf};
-use std::process::Command;
+use std::process::{Command, Stdio};
 
 const NGINX_VERSION: &'static str = "1.19.3";
 
@@ -17,6 +17,8 @@ fn run_make(rule: &str, cwd: &Path, local_nginx_path: &str) -> Result<bool> {
         )
         .env("NGINX_PATH", local_nginx_path)
         .current_dir(cwd)
+        .stderr(Stdio::inherit())
+        .stdout(Stdio::inherit())
         .output()?;
     Ok(output.status.success())
 }
@@ -61,7 +63,7 @@ fn main() {
     let bindings = bindgen::Builder::default()
         .header("wrapper.h")
         .layout_tests(false)
-        .blacklist_item("IPPORT_RESERVED")
+        .blocklist_item("IPPORT_RESERVED")
         .clang_args(vec![
             format!("-I{}/src/core", nginx_dir),
             format!("-I{}/src/event", nginx_dir),

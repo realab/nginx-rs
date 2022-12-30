@@ -5,9 +5,9 @@
 
 include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 
-pub const NGX_READ_EVENT: EPOLL_EVENTS = (EPOLL_EVENTS_EPOLLIN | EPOLL_EVENTS_EPOLLRDHUP);
-pub const NGX_WRITE_EVENT: EPOLL_EVENTS = EPOLL_EVENTS_EPOLLOUT;
-pub const NGX_CLEAR_EVENT: EPOLL_EVENTS = EPOLL_EVENTS_EPOLLET;
+// pub const NGX_READ_EVENT: EPOLL_EVENTS = (EPOLL_EVENTS_EPOLLIN | EPOLL_EVENTS_EPOLLRDHUP);
+// pub const NGX_WRITE_EVENT: EPOLL_EVENTS = EPOLL_EVENTS_EPOLLOUT;
+// pub const NGX_CLEAR_EVENT: EPOLL_EVENTS = EPOLL_EVENTS_EPOLLET;
 
 pub fn ngx_add_event(ev: *mut ngx_event_t, event: ngx_int_t, flags: ngx_uint_t) -> ngx_int_t {
     unsafe { ngx_event_actions.add.unwrap()(ev, event, flags) }
