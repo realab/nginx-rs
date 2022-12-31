@@ -1,5 +1,5 @@
 #[macro_export]
-macro_rules! ngx_debug  {
+macro_rules! ngx_debug {
     ($level:expr,$log:expr,$($arg:tt)*) => {
         if (*$log).log_level & $level as usize > 0 {
             let c_message = ::std::ffi::CString::new(format!($($arg)*)).unwrap_or_default();
@@ -9,7 +9,7 @@ macro_rules! ngx_debug  {
 }
 
 #[macro_export]
-macro_rules! ngx_error  {
+macro_rules! ngx_error {
     ($($arg:tt)*) => {
         unsafe  {
             if (*(*$crate::ngx_cycle).log).log_level >= $crate::NGX_LOG_ERR as usize {
@@ -26,7 +26,7 @@ macro_rules! ngx_error  {
 }
 
 #[macro_export]
-macro_rules! ngx_http_debug  {
+macro_rules! ngx_http_debug {
     ($request:expr,$($arg:tt)*) => {
         unsafe  {
             ngx_debug!($crate::NGX_LOG_DEBUG_HTTP,(*($request).connection).log,$($arg)*);
@@ -35,7 +35,7 @@ macro_rules! ngx_http_debug  {
 }
 
 #[macro_export]
-macro_rules! ngx_event_debug  {
+macro_rules! ngx_event_debug {
     ($($arg:tt)*) => {
         unsafe  {
             ngx_debug!($crate::NGX_LOG_DEBUG_EVENT,(*$crate::ngx_cycle).log,$($arg)*);

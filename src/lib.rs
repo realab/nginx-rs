@@ -7,3 +7,4 @@ pub mod log;
 
 pub use bindings::*;
 pub use helpers::*;
+pub use log::*;
